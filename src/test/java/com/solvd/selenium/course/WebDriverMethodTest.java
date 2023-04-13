@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.Set;
 
-public class WebDriverMethod {
+public class WebDriverMethodTest {
 
     private WebDriver driver;
 

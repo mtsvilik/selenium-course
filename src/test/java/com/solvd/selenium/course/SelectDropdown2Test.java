@@ -6,14 +6,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class CheckBoxAndRadioButtonExample {
+public class SelectDropdown2Test {
 
-    WebDriver driver;
+    private WebDriver driver;
 
     @BeforeMethod
     public void setUp() {
@@ -27,23 +27,18 @@ public class CheckBoxAndRadioButtonExample {
 
     @Test
     public void verifyLogInTest() throws InterruptedException {
-        driver.findElement(By.xpath("//*[@id='CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll']")).click();
-        WebElement radioButton = driver.findElement(By.id("doi0"));
-        Actions actions = new Actions(driver);
-        actions.moveToElement(radioButton).perform();
+        driver.findElement(By.id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll")).click();
+        WebElement dropDown = driver.findElement(By.xpath("//*[@id='how-select']"));
+        Select select = new Select(dropDown);
+        select.selectByIndex(2);
         Thread.sleep(2000);
-        radioButton.click();
-
-        driver.navigate().to("https://www.ebay.com/");
-        driver.findElement(By.id("gh-ac")).sendKeys("mobile");
-        driver.findElement(By.id("gh-btn")).click();
-        WebElement checkBox = driver.findElement(By.id("s0-51-12_incl_desc"));
-        checkBox.click();
-        System.out.println(checkBox.isSelected());
+        select.selectByVisibleText("YouTube");
         Thread.sleep(2000);
-        checkBox.click();
+        select.selectByValue("Event");
+        Thread.sleep(2000);
 
-        System.out.println(driver.findElements(By.xpath("//input[@type='checkbox']")).size());
+        WebElement firstOption = select.getFirstSelectedOption();
+        System.out.println(firstOption.getText());
     }
 
     @AfterMethod

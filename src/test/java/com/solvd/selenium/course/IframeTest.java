@@ -2,7 +2,6 @@ package com.solvd.selenium.course;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,9 +10,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class AutoSuggestDropDown {
+public class IframeTest {
 
-    private WebDriver driver;
+    WebDriver driver;
 
     @BeforeMethod
     public void setUp() {
@@ -21,20 +20,21 @@ public class AutoSuggestDropDown {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
-        driver.get("https://en.belavia.by/");
+        driver.get("https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_alert");
         driver.manage().window().maximize();
     }
 
     @Test
     public void verifyLogInTest() throws InterruptedException {
-        driver.findElement(By.xpath("//*[@for='OriginLocation_Combobox']")).click();
-        WebElement from = driver.findElement(By.xpath("//*[@id='OriginLocation_Combobox']"));
+        WebElement iFrame = driver.findElement(By.id("iframeResult"));
+        driver.switchTo().frame(iFrame);
+        driver.findElement(By.xpath("/html/body/button")).click();
+        String alertText = driver.switchTo().alert().getText();
+        System.out.println(alertText);
         Thread.sleep(2000);
-        from.sendKeys("Moscow");
-        Thread.sleep(2000);
-        from.sendKeys(Keys.ARROW_DOWN);
-        Thread.sleep(2000);
-        from.sendKeys(Keys.ENTER);
+        driver.switchTo().alert().accept();
+        driver.switchTo().parentFrame();
+        System.out.println(driver.getTitle());
     }
 
     @AfterMethod

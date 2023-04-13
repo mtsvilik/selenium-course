@@ -6,12 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.locators.RelativeLocator;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class RelativeLocatorExample {
+public class SliderTest {
 
     private WebDriver driver;
 
@@ -21,17 +21,21 @@ public class RelativeLocatorExample {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
-        driver.get("https://www.saucedemo.com/");
+        driver.get("https://jqueryui.com/slider/#colorpicker");
         driver.manage().window().maximize();
     }
 
     @Test
-    public void verifyLogInTest() {
-        WebElement password = driver.findElement(By.id("password"));
-        driver.findElement(RelativeLocator.with(By.tagName("input"))
-                .above(password)).sendKeys("standard_user");
-        driver.findElement(By.id("password")).sendKeys("secret_sauce");
-        driver.findElement(By.id("login-button")).click();
+    public void verifyLogInTest() throws InterruptedException {
+        WebElement frame = driver.findElement(By.xpath("//*[@id='content']/iframe"));
+        driver.switchTo().frame(frame);
+        WebElement greenSlider = driver.findElement(By.xpath("//*[@id='green']/span"));
+        WebElement redSlider = driver.findElement(By.xpath("//*[@id='red']/span"));
+        WebElement blueSlider = driver.findElement(By.xpath("//*[@id='blue']/span"));
+        Actions action = new Actions(driver);
+        action.dragAndDropBy(greenSlider, -100, 125).perform();
+        action.dragAndDropBy(redSlider, -100, 125).perform();
+        action.dragAndDropBy(blueSlider, 125, 100).perform();
     }
 
     @AfterMethod

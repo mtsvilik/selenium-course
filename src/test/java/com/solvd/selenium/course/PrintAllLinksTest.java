@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class PrintAllLinks {
+public class PrintAllLinksTest {
 
     private WebDriver driver;
 

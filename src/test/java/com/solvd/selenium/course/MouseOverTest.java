@@ -6,13 +6,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class RadioButtonExample {
+public class MouseOverTest {
 
-    WebDriver driver;
+    private WebDriver driver;
 
     @BeforeMethod
     public void setUp() {
@@ -20,22 +21,20 @@ public class RadioButtonExample {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
-        driver.get("https://www.singaporeair.com/en_UK/pl/home#/book/bookflight");
+        driver.get("https://www.ebay.com/");
         driver.manage().window().maximize();
     }
 
     @Test
     public void verifyLogInTest() throws InterruptedException {
-        WebElement radioButton1 = driver.findElement(By.id("bookFlights"));
-        WebElement radioButton2 = driver.findElement(By.id("redeemFlights"));
-        radioButton2.click();
-        Thread.sleep(2000);
-        System.out.println(radioButton1.isSelected());
-        System.out.println(radioButton2.isSelected());
+        WebElement element = driver.findElement(By.xpath("//*[@id='mainContent']/div[1]/ul/li[3]/a"));
+        Actions action = new Actions(driver);
+        action.moveToElement(element).perform();
+
     }
 
-    @AfterMethod
-    public void tearDown() {
-        driver.close();
-    }
+//    @AfterMethod
+//    public void tearDown() {
+//        driver.close();
+//    }
 }

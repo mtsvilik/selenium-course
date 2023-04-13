@@ -10,7 +10,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class LogInTest {
+public class LogInTestTest {
 
     private WebDriver driver;
     private final String browser = PropertyReader.getProperties("browser");
